@@ -22,7 +22,7 @@ class Route:
         return self.locNames[numStop % len(self.locNames)]
         
     def getNextStop(self, nameStop):
-        for i in range(0, len(self.routeName)):
+        for i in range(0, len(self.routeName)+1):
             #print("hi there")
             #print(self.locNames[i])
             #print(nameStop)
@@ -107,11 +107,22 @@ for i in busRoutes :
     print(i)
     print(busRoutes[i])
     print ("\n\n")
-    
-from random import *
 
+import datetime
+from random import *
+import math
 class Bus:
-    def __init__(self, routeName):
+    BusNumber = 0
+    
+    def __init__(self, routeName, delta):
+        self.busId = Bus.BusNumber
+        Bus.BusNumber += 1
+        
+        self.active = (datetime.datetime.now().hour > 5 and datetime.datetime.now().hour < 22)
+        
+        self.waitTime = delta.seconds
+        if (self.waitTime == 0):
+            self.waitTime = delta.microSeconds / 1000
         self.route = routeName
         self.prevDest = (busRoutes[routeName]).get(0)
         self.nextDest = (busRoutes[routeName]).get(1)
@@ -119,46 +130,105 @@ class Bus:
         self.currY = busRoutes[routeName].getY(self.prevDest)
         self.nextX = busRoutes[routeName].getX(self.nextDest)
         self.nextY = busRoutes[routeName].getY(self.nextDest)
+        self.currXDist = self.nextX- self.currX
+        self.currYDist = self.nextY - self.currY
         self.waitSteps = 0
+        self.stepsTowardsNextDest = 0
+        
+        self.sincePrevStop = 0
     
     def drive(self, time):
+        if time.hour > 5 and time.hour < 22:
+            self.active = True
+        else:
+            self.active = False
         if self.waitSteps > 0:
             self.waitSteps = self.waitSteps - 1
+            self.sincePrevStop+=1
             return
-        if time.hour > 5 and time.hour < 22:
+        if self.active:
+            self.sincePrevStop+=1
             # don't stop here ever
-            if self.prevDest == "Goheen Walk":
-                5 -4 # dumb command just to allow for indentation
-            # higher chance of stopping at this stop
-            elif self.prevDest == "Lot 16 & 23" and random() < .3:
+            if random() < .05:
                 return
-            elif random() < .05:
-                return
-            
-            self.currX = self.currX + (self.nextX - self.currX)/10
-            self.currY = self.currY + (self.nextY - self.currY)/10
+
+            self.stepsTowardsNextDest+=1
+            #print(self.currXDist)
+            #print(self.nextX - self.currX)
+            #print(self.currYDist)
+            #print(self.currY)
+            self.currX = self.currX + self.currXDist/(180 / self.waitTime)
+            self.currY = self.currY + self.currYDist/(180 / self.waitTime)
             #if it is at the next stop, wait a bit and then start moving to next stop
-            if (self.currX - self.nextX  < 10 ** (-12) and self.currY - self.nextY < 10 ** (-12)):
-                self.waitSteps = 20
+            if (math.fabs(self.currX - self.nextX)  < 10 ** (-7) and math.fabs(self.currY - self.nextY) < 10 ** (-7)):
+                self.waitSteps = uniform((120 / self.waitTime), (240/self.waitTime))
                 if (self.nextDest == "Lot 16 & 23"):
-                    self.waitSteps = 200
+                    self.waitSteps = uniform((600 / self.waitTime),(1200 / self.waitTime))
+                if (self.nextDest == "Goheen Walk"):
+                    self.waitSteps = 0
+ 
                 self.prevDest = self.nextDest
                 self.nextDest = busRoutes[self.route].getNextStop(self.prevDest)
-        
+                self.nextX = busRoutes[self.route].getX(self.nextDest)
+                self.nextY = busRoutes[self.route].getY(self.nextDest)
+                self.currXDist= self.nextX - self.currX
+                self.currYDist = self.nextY - self.currY
+                self.stepsTowardsNextDest = 0
+                self.sincePrevStop = 0
+        else:
+            return
+    
+    def distanceToNext(self):
+        return (self.currX - self.nextX) * (self.currX - self.nextX) + (self.currY - self.nextY) * (self.currY - self.nextY)
+    
+    def roundDistance(self, dist):
+        return int(math.ceil((dist)/self.waitTime)) *self.waitTime
+    
+    def timeSincePrevStop(self):
+        return self.sincePrevStop*self.waitTime
+    
+    def timeToNextStop(self):
+        #print(int(self.waitSteps * self.waitTime))
+        #print(self.waitTime*(180/self.waitTime - self.stepsTowardsNextDest))
+        return self.roundDistance(int(self.waitSteps * self.waitTime) + int(self.waitTime*(180/self.waitTime - self.stepsTowardsNextDest)))
+    
     def getX(self):
-        return self.currX
+        if (self.active):
+            return self.currX
+        else:
+            return 0
     def getY(self):
-        return self.currY
+        if (self.active):
+            return self.currY
+        else:
+            return 0
     
     def getLocation(self):
         return "(" + str(self.getX()) + ", " + str(self.getY()) + ")"
     
     def prevStop(self):
-        return self.prevDest
-        
+        if (self.active):
+            return self.prevDest
+        else:
+            return "NULL"
+    def getNextX(self):
+        return self.nextX
+    def getNextY(self):
+        return self.nextY
     def nextStop(self):
-        return self.nextDest
-            
+        if (self.active):
+            return self.nextDest
+        else:
+            return "NULL"
+    
+    def isActive(self):
+        return self.active
+    
+        
+    def printLocation(self):
+        if(self.active):
+            print(str(self.busId) + ": " + self.getLocation())
+    
     # Define a toString method to allow for easy visualization
     def __str__(self):
         s = self.route + "\n"
@@ -168,163 +238,107 @@ class Bus:
         return s
 
 
-
+import numpy as np
     
 def writeToDataSheet(currentTime, delta, sheet, numIterations, b1, b2):
     rowNum = 0
+    dataframe = {}
+    dataframe["Location"] = []
+    dataframe["Time"] = []
+    dataframe["Bus #"] = []
+    dataframe["Prev Dest"] = []
+    dataframe["Next Dest"] = []
+    dataframe["Time since Prev"] = []
+    dataframe["Time to Dest"] = []
+    dataframe["Testing"] = []
+    dataframe["Distance to Next"] = []
+    dataframe["X"] = []
+    dataframe["Y"] =[]
+    
     for i in range(0, numIterations):
+        if (i % (numIterations/10) == 0):
+            print("another 10%!")
         b1.drive(currentTime)
         b2.drive(currentTime)
         currentTime = currentTime + delta
-        sheet["Location"][rowNum]  = b1.getLocation()
-        sheet["Time"][rowNum] = currentTime
-        sheet["Bus #"][rowNum] = "1"
-        sheet["Prev Dest"][rowNum] = b1.prevStop()
-        sheet["Next Dest"][rowNum] = b1.nextStop()
-        sheet["Location"][rowNum+1] = b2.getLocation()
-        sheet["Time"][rowNum+1] = currentTime
-        sheet["Bus #"][rowNum+1] = "2"
-        sheet["Prev Dest"][rowNum+1] = b2.prevStop()
-        sheet["Next Dest"][rowNum+1] = b2.nextStop()
-        rowNum = rowNum + 2
-    return sheet
-
-sheet1 = xlsx.parse(1) #actually use sheet 2
-#start bus1 at Goheen Walk
-#start bus2 at Equad
-# every one 10 seconds data seta
-import datetime
+        dataframe["Location"].append(b1.getLocation())
+        dataframe["Location"].append(b2.getLocation())
+        dataframe["Time"].append(currentTime)
+        dataframe["Time"].append(currentTime)
+        dataframe["Bus #"].append("1")
+        dataframe["Bus #"].append("2")
+        dataframe["Prev Dest"].append(b1.prevStop())
+        dataframe["Prev Dest"].append(b2.prevStop())
+        dataframe["Next Dest"].append(b1.nextStop())
+        dataframe["Next Dest"].append(b2.nextStop())
+        dataframe["Time to Dest"].append(b1.timeToNextStop())
+        dataframe["Time to Dest"].append(b2.timeToNextStop())
+        dataframe["Time since Prev"].append(b1.timeSincePrevStop())
+        dataframe["Time since Prev"].append(b2.timeSincePrevStop())
+        dataframe["Distance to Next"].append(b1.distanceToNext())
+        dataframe["Distance to Next"].append(b2.distanceToNext())
+        dataframe["X"].append(b1.getX())
+        dataframe["X"].append(b2.getX())
+        dataframe["Y"].append(b1.getY())
+        dataframe["Y"].append(b2.getY())
+        #rowNum = rowNum+2
+    dataframe["Testing"] = np.random.uniform(0, 1, 2*numIterations) <= .75
+    return dataframe
+'''
 from datetime import timedelta
 delta = timedelta(seconds = 10)
 currentTime = datetime.datetime.now()
 #print(currentTime)
 #currentTime = currentTime + delta
 print(currentTime)
-b1 = Bus("Central")
-b2 = Bus("E-Quad")
-sheet1 = writeToDataSheet(currentTime, delta, sheet1, 10000000, b1, b2)
-        
+b1 = Bus("Central", delta)
+b2 = Bus("E-Quad", delta)
 
+print(b1.roundDistance(143.23452))
+'''
+#sheet1 = xlsx.parse(1) #actually use sheet 2
+#start bus1 at Goheen Walk
+#start bus2 at Equad
+# every one 10 seconds data seta
+from datetime import timedelta
+delta = timedelta(seconds = 10)
+currentTime = datetime.datetime.now()
+#print(currentTime)
+#currentTime = currentTime + delta
+print(currentTime)
+b1 = Bus("Central", delta)
+b2 = Bus("E-Quad", delta)
+
+'''
+for i in range(1, 1000):
+    b2.drive(currentTime)
+    b2.printLocation()
+    print(b2.distanceToNext())
+
+'''
+sheet1 = writeToDataSheet(currentTime, delta, sheet1, 100000, b1, b2)
+df = pd.DataFrame(sheet1)
+writer = pd.ExcelWriter('sampledata10.xlsx', engine = 'xlsxwriter', datetime_format='hh:mm:ss')
+df.to_excel(writer, 'Sample Data', index = False)
 # ESTABLISH WRITER TO WRITE TO OUTPUT FILE
-writer = pd.ExcelWriter('sampledata10.xlsx', engine = 'xlsxwriter')
-sheet1.to_excel(writer, 'Sample Data', index = False)
+
+df.to_excel(writer, 'Sample Data', index = False)
+#sheet1.to_excel(writer, 'Sample Data', index = False)
 sheet = writer.book.worksheets()[0]
 print("done with seconds10")
 # Center the worksheet
+#sheet1['DATE'] = pd.to_datetime(sheet1['Time']).dt.strftime('%-m/%-d/%y')
 center = writer.book.add_format({'align': 'center'})
 sheet.set_column('A:G', None, center)
 
 # Following column widths are arbitrary that look good
 # sets the width of the first column to 8
-sheet.set_column(0, 0, 30)
-sheet.set_column(1, 1, 20)
+sheet.set_column(0, 0, 10)
+sheet.set_column(1, 1, 35)
 # sets width of remaining columns to 13
-sheet.set_column(2, 2, 13)
-sheet.set_column(3,4, 30)
+sheet.set_column(2, 3, 25)
+sheet.set_column(4,4, 15)
 
 
 # save the file
 writer.save()
-
-
-
-# every 5 seconds data set
-delta = timedelta(seconds = 5)
-b1 = Bus("Central")
-b2 = Bus("E-Quad")
-sheet1 = writeToDataSheet(currentTime, delta, sheet1, 200000000, b1, b2)
-print("done with seconds5")    
-
-
-# ESTABLISH WRITER TO WRITE TO OUTPUT FILE
-writer = pd.ExcelWriter('sampledata5.xlsx', engine = 'xlsxwriter')
-sheet1.to_excel(writer, 'Sample Data', index = False)
-sheet = writer.book.worksheets()[0]
-
-# Center the worksheet
-center = writer.book.add_format({'align': 'center'})
-sheet.set_column('A:G', None, center)
-
-# Following column widths are arbitrary that look good
-# sets the width of the first column to 8
-# sets the width of the first column to 8
-sheet.set_column(0, 0, 30)
-sheet.set_column(1, 1, 20)
-# sets width of remaining columns to 13
-sheet.set_column(2, 2, 13)
-sheet.set_column(3,4, 30)
-
-
-# save the file
-writer.save()
-
-# every 1 second data set
-delta = timedelta(seconds = 1)
-sheet1 = writeToDataSheet(currentTime, delta, sheet1, 100000000, b1, b2)
-print("done with seconds1")
-
-# ESTABLISH WRITER TO WRITE TO OUTPUT FILE
-writer = pd.ExcelWriter('sampledata1.xlsx', engine = 'xlsxwriter')
-sheet1.to_excel(writer, 'Sample Data', index = False)
-sheet = writer.book.worksheets()[0]
-
-# Center the worksheet
-center = writer.book.add_format({'align': 'center'})
-sheet.set_column('A:G', None, center)
-
-# Following column widths are arbitrary that look good
-# sets the width of the first column to 8
-# sets the width of the first column to 8
-sheet.set_column(0, 0, 30)
-sheet.set_column(1, 1, 20)
-# sets width of remaining columns to 13
-sheet.set_column(2, 2, 13)
-sheet.set_column(3,4, 30)
-
-
-# save the file
-writer.save()
-
-
-'''    
-    # do not perform calculations on the header row
-    if (row[2] == 'BUY'):
-        # calculate how much profit from buying
-        x = buy(row[3], float(row[5]), float(row[4]))
-        #print("Profit: %s" %x)
-        # if no profit do not add anything to sheet
-        if (x != float('nan')):
-            # else add to data sheet
-            sheet1["REALIZED P&L"][i] = x
-    # if not buying a stock, must be selling/shorting
-    else:
-        # calculate profit from selling/shorting
-        x = sell(row[3], float(row[5]), float(row[4]))
-        # if no profit do not add anything to sheet
-        if (x != float('nan')):
-            # else add to data sheet
-            sheet1["REALIZED P&L"][i]  = x
-
-# format the dates similar to how they were presented
-sheet1['DATE'] = pd.to_datetime(sheet1['DATE']).dt.strftime('%-m/%-d/%y')
-
-# ESTABLISH WRITER TO WRITE TO OUTPUT FILE
-writer = pd.ExcelWriter('sampledataOutput.xlsx', engine = 'xlsxwriter')
-sheet1.to_excel(writer, 'Sample Data', index = False)
-sheet = writer.book.worksheets()[0]
-
-# Center the worksheet
-center = writer.book.add_format({'align': 'center'})
-sheet.set_column('A:G', None, center)
-
-# Following column widths are arbitrary that look good
-# sets the width of the first column to 8
-sheet.set_column(0, 0, 8)
-# sets the width of the second column to 30
-sheet.set_column(1, 1, 30)
-# sets width of remaining columns to 13
-sheet.set_column(2, 6, 13)
-
-# save the file
-writer.save()
-'''

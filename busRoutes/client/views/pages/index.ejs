@@ -1,42 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <% include ../partial/head %>
-    <script>
-      function getX() { 
-        return document.getElementById("predictionForm").elements["xloc"].value
-      }
-      function getY() {
-        return document.getElementById("predictionForm").elements["yloc"].value
-      }
-      predictionStateChangeHandler = (res) =>
-      {
-
-        document.getElementById("prediction").innerHTML = res
-      }
-    </script>
+    <title>Tiger Transit ETAp</title>
+    <script src="javascripts/eta.js"></script>
+    <script src="javascripts/busUpdate.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "style/map.css" />
   </head>
-
   <body>
-    <div>
-      <h3> Current Location </h3>
-      <form id="predictionForm">
-        x-coordinate: <input type="number" name="xloc">
-        <br>
-        y-coordinate: <input type="number" name="yloc">
-        <br>
-        <br>
-      </form>
-      <button type="button" onclick="makePrediction(getX(),getY(), 
-                                     predictionStateChangeHandler)"> 
-        Predicte ETA 
-      </button>
-      <br>
-      <br>
-      <h3> Prediction </h3>
-      <span> ETA: </span>
-      <span id="prediction"> NULL </span>
-    <div>
+  <% include ../partial/map %>
   </body>
-
 </html>
+

@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100BC9FA1FB6DB350031713C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100BC9F91FB6DB350031713C /* AppDelegate.swift */; };
+		100BC9FC1FB6DB350031713C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100BC9FB1FB6DB350031713C /* ViewController.swift */; };
+		100BC9FF1FB6DB350031713C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 100BC9FD1FB6DB350031713C /* Main.storyboard */; };
+		100BCA011FB6DB350031713C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 100BCA001FB6DB350031713C /* Assets.xcassets */; };
+		100BCA041FB6DB350031713C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 100BCA021FB6DB350031713C /* LaunchScreen.storyboard */; };
+		100BCA0F1FB6DB350031713C /* TigerTransitTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100BCA0E1FB6DB350031713C /* TigerTransitTrackerTests.swift */; };
+		100BCA1A1FB6DB350031713C /* TigerTransitTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100BCA191FB6DB350031713C /* TigerTransitTrackerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		100BCA0B1FB6DB350031713C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 100BC9EE1FB6DB350031713C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 100BC9F51FB6DB350031713C;
+			remoteInfo = TigerTransitTracker;
+		};
+		100BCA161FB6DB350031713C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 100BC9EE1FB6DB350031713C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 100BC9F51FB6DB350031713C;
+			remoteInfo = TigerTransitTracker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		100BC9F61FB6DB350031713C /* TigerTransitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TigerTransitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		100BC9F91FB6DB350031713C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		100BC9FB1FB6DB350031713C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		100BC9FE1FB6DB350031713C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		100BCA001FB6DB350031713C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		100BCA031FB6DB350031713C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		100BCA051FB6DB350031713C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100BCA0A1FB6DB350031713C /* TigerTransitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TigerTransitTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		100BCA0E1FB6DB350031713C /* TigerTransitTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTransitTrackerTests.swift; sourceTree = "<group>"; };
+		100BCA101FB6DB350031713C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100BCA151FB6DB350031713C /* TigerTransitTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TigerTransitTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		100BCA191FB6DB350031713C /* TigerTransitTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTransitTrackerUITests.swift; sourceTree = "<group>"; };
+		100BCA1B1FB6DB350031713C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		100BC9F31FB6DB350031713C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100BCA071FB6DB350031713C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100BCA121FB6DB350031713C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		100BC9ED1FB6DB350031713C = {
+			isa = PBXGroup;
+			children = (
+				100BC9F81FB6DB350031713C /* TigerTransitTracker */,
+				100BCA0D1FB6DB350031713C /* TigerTransitTrackerTests */,
+				100BCA181FB6DB350031713C /* TigerTransitTrackerUITests */,
+				100BC9F71FB6DB350031713C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		100BC9F71FB6DB350031713C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				100BC9F61FB6DB350031713C /* TigerTransitTracker.app */,
+				100BCA0A1FB6DB350031713C /* TigerTransitTrackerTests.xctest */,
+				100BCA151FB6DB350031713C /* TigerTransitTrackerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		100BC9F81FB6DB350031713C /* TigerTransitTracker */ = {
+			isa = PBXGroup;
+			children = (
+				100BC9F91FB6DB350031713C /* AppDelegate.swift */,
+				100BC9FB1FB6DB350031713C /* ViewController.swift */,
+				100BC9FD1FB6DB350031713C /* Main.storyboard */,
+				100BCA001FB6DB350031713C /* Assets.xcassets */,
+				100BCA021FB6DB350031713C /* LaunchScreen.storyboard */,
+				100BCA051FB6DB350031713C /* Info.plist */,
+			);
+			path = TigerTransitTracker;
+			sourceTree = "<group>";
+		};
+		100BCA0D1FB6DB350031713C /* TigerTransitTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				100BCA0E1FB6DB350031713C /* TigerTransitTrackerTests.swift */,
+				100BCA101FB6DB350031713C /* Info.plist */,
+			);
+			path = TigerTransitTrackerTests;
+			sourceTree = "<group>";
+		};
+		100BCA181FB6DB350031713C /* TigerTransitTrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				100BCA191FB6DB350031713C /* TigerTransitTrackerUITests.swift */,
+				100BCA1B1FB6DB350031713C /* Info.plist */,
+			);
+			path = TigerTransitTrackerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		100BC9F51FB6DB350031713C /* TigerTransitTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100BCA1E1FB6DB350031713C /* Build configuration list for PBXNativeTarget "TigerTransitTracker" */;
+			buildPhases = (
+				100BC9F21FB6DB350031713C /* Sources */,
+				100BC9F31FB6DB350031713C /* Frameworks */,
+				100BC9F41FB6DB350031713C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TigerTransitTracker;
+			productName = TigerTransitTracker;
+			productReference = 100BC9F61FB6DB350031713C /* TigerTransitTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		100BCA091FB6DB350031713C /* TigerTransitTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100BCA211FB6DB350031713C /* Build configuration list for PBXNativeTarget "TigerTransitTrackerTests" */;
+			buildPhases = (
+				100BCA061FB6DB350031713C /* Sources */,
+				100BCA071FB6DB350031713C /* Frameworks */,
+				100BCA081FB6DB350031713C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				100BCA0C1FB6DB350031713C /* PBXTargetDependency */,
+			);
+			name = TigerTransitTrackerTests;
+			productName = TigerTransitTrackerTests;
+			productReference = 100BCA0A1FB6DB350031713C /* TigerTransitTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		100BCA141FB6DB350031713C /* TigerTransitTrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100BCA241FB6DB350031713C /* Build configuration list for PBXNativeTarget "TigerTransitTrackerUITests" */;
+			buildPhases = (
+				100BCA111FB6DB350031713C /* Sources */,
+				100BCA121FB6DB350031713C /* Frameworks */,
+				100BCA131FB6DB350031713C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				100BCA171FB6DB350031713C /* PBXTargetDependency */,
+			);
+			name = TigerTransitTrackerUITests;
+			productName = TigerTransitTrackerUITests;
+			productReference = 100BCA151FB6DB350031713C /* TigerTransitTrackerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		100BC9EE1FB6DB350031713C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Matthew Yeh";
+				TargetAttributes = {
+					100BC9F51FB6DB350031713C = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = QZKHYCS4V2;
+						ProvisioningStyle = Automatic;
+					};
+					100BCA091FB6DB350031713C = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = QZKHYCS4V2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 100BC9F51FB6DB350031713C;
+					};
+					100BCA141FB6DB350031713C = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = QZKHYCS4V2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 100BC9F51FB6DB350031713C;
+					};
+				};
+			};
+			buildConfigurationList = 100BC9F11FB6DB350031713C /* Build configuration list for PBXProject "TigerTransitTracker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 100BC9ED1FB6DB350031713C;
+			productRefGroup = 100BC9F71FB6DB350031713C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				100BC9F51FB6DB350031713C /* TigerTransitTracker */,
+				100BCA091FB6DB350031713C /* TigerTransitTrackerTests */,
+				100BCA141FB6DB350031713C /* TigerTransitTrackerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		100BC9F41FB6DB350031713C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100BCA041FB6DB350031713C /* LaunchScreen.storyboard in Resources */,
+				100BCA011FB6DB350031713C /* Assets.xcassets in Resources */,
+				100BC9FF1FB6DB350031713C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100BCA081FB6DB350031713C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100BCA131FB6DB350031713C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		100BC9F21FB6DB350031713C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100BC9FC1FB6DB350031713C /* ViewController.swift in Sources */,
+				100BC9FA1FB6DB350031713C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100BCA061FB6DB350031713C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100BCA0F1FB6DB350031713C /* TigerTransitTrackerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		100BCA111FB6DB350031713C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100BCA1A1FB6DB350031713C /* TigerTransitTrackerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		100BCA0C1FB6DB350031713C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 100BC9F51FB6DB350031713C /* TigerTransitTracker */;
+			targetProxy = 100BCA0B1FB6DB350031713C /* PBXContainerItemProxy */;
+		};
+		100BCA171FB6DB350031713C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 100BC9F51FB6DB350031713C /* TigerTransitTracker */;
+			targetProxy = 100BCA161FB6DB350031713C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		100BC9FD1FB6DB350031713C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				100BC9FE1FB6DB350031713C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		100BCA021FB6DB350031713C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				100BCA031FB6DB350031713C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		100BCA1C1FB6DB350031713C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		100BCA1D1FB6DB350031713C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		100BCA1F1FB6DB350031713C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = QZKHYCS4V2;
+				INFOPLIST_FILE = TigerTransitTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Yeh.TigerTransitTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		100BCA201FB6DB350031713C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = QZKHYCS4V2;
+				INFOPLIST_FILE = TigerTransitTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Yeh.TigerTransitTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		100BCA221FB6DB350031713C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = QZKHYCS4V2;
+				INFOPLIST_FILE = TigerTransitTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Yeh.TigerTransitTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TigerTransitTracker.app/TigerTransitTracker";
+			};
+			name = Debug;
+		};
+		100BCA231FB6DB350031713C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = QZKHYCS4V2;
+				INFOPLIST_FILE = TigerTransitTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Yeh.TigerTransitTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TigerTransitTracker.app/TigerTransitTracker";
+			};
+			name = Release;
+		};
+		100BCA251FB6DB350031713C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = QZKHYCS4V2;
+				INFOPLIST_FILE = TigerTransitTrackerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Yeh.TigerTransitTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TigerTransitTracker;
+			};
+			name = Debug;
+		};
+		100BCA261FB6DB350031713C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = QZKHYCS4V2;
+				INFOPLIST_FILE = TigerTransitTrackerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Yeh.TigerTransitTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TigerTransitTracker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		100BC9F11FB6DB350031713C /* Build configuration list for PBXProject "TigerTransitTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100BCA1C1FB6DB350031713C /* Debug */,
+				100BCA1D1FB6DB350031713C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		100BCA1E1FB6DB350031713C /* Build configuration list for PBXNativeTarget "TigerTransitTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100BCA1F1FB6DB350031713C /* Debug */,
+				100BCA201FB6DB350031713C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		100BCA211FB6DB350031713C /* Build configuration list for PBXNativeTarget "TigerTransitTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100BCA221FB6DB350031713C /* Debug */,
+				100BCA231FB6DB350031713C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		100BCA241FB6DB350031713C /* Build configuration list for PBXNativeTarget "TigerTransitTrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100BCA251FB6DB350031713C /* Debug */,
+				100BCA261FB6DB350031713C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 100BC9EE1FB6DB350031713C /* Project object */;
+}

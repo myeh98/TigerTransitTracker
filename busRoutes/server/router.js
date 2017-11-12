@@ -12,7 +12,7 @@ router.get('/movers/locations', (req, res) =>
 {
   newLocs = busUpdate()
   res.json(newLocs)
-  console.log('Bus update sent ' + JSON.stringify(newLocs))
+
 })
 
 router.post('/predict/eta', (req, res) => 
@@ -22,7 +22,7 @@ router.post('/predict/eta', (req, res) =>
   {
     res.json({eta: eta})
   })
-  console.log("Predicting for " + loc)
+
 })
 
 module.exports = router

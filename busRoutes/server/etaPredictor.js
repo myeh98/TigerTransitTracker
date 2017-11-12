@@ -14,9 +14,9 @@ predict = ((locationName, callback) => {
     args.push(bus.distNext)
     args.push(bus.tPrev)
   })
-  console.log(args)
   var options = {
     scriptPath: 'server/python/',
+    pythonPath: '/usr/bin/python3.5',
     args: busData 
   }
   pythonShell.run('etaPredictor.py', 
@@ -24,6 +24,7 @@ predict = ((locationName, callback) => {
                   (err,results) => 
   {
     if (err) throw err
+    console.log("Prediction completed")
     callback(results)
   })
 })

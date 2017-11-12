@@ -124,7 +124,7 @@ def __main__():
             if tempTimes[j] < timesAtEachStop[j]:
                 timesAtEachStop[j] = tempTimes[j]
         
-    print("ETA: " + str(timesAtEachStop[desiredStop]))
+    print(str(timesAtEachStop[desiredStop]))
     
 #generateBusPaths.getTimes(time, routeName, prevStop)
 

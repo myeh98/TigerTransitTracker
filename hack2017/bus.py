@@ -10,21 +10,49 @@ class Route:
         self.ylocs = {};
         self.locNames = []
         self.routeName = routeName
+        self.routeTimes = {}
+        self.routeNumVisited = {}
+        
     
     def __init__(self, routeName, name, x, y):
         self.routeName = routeName
         self.xlocs = {}
         self.ylocs = {}
+        self.routeTimes = {}
+        self.routeNumVisited = {}
         self.locNames = []
         self.xlocs[name] =x
         self.ylocs[name] = y
         self.locNames.append(name)
+        self.routeTimes[name] = 0
+        self.routeNumVisited[name] = 0
+    
+    def addLocTimes(self, stop, time):
+        self.routeNumVisited[stop] += 1
+        self.routeTimes[stop] += time
     
     def get(self, numStop):
         return self.locNames[numStop % len(self.locNames)]
         
+    def getAverageTimeNextStop(self, stop):
+        if (self.routeNumVisited[stop] == 0):
+            return 0
+        return self.routeTimes[stop]/self.routeNumVisted[stop]
+        
+    def getTimesToAllStops(self, stop, time1):
+        retTimes = {}
+        prevTime = 0
+        for i in range(0, len(self.locNames)):
+            if (self.locNames[i] == stop):
+                retTimes[self.locNames[i]] = time1
+                for j in range(1, len(self.locNames)):
+                    prevTime += getAverageTimeNextStop(self.locNames(i+j))
+                    retTimes[self.locNames[i + j]] = prevTime
+                return retTimes
+        return retTimes
+        
     def getNextStop(self, nameStop):
-        for i in range(0, len(self.routeName)):
+        for i in range(0, len(self.locNames)):
             #print("hi there")
             #print(self.locNames[i])
             #print(nameStop)
@@ -36,6 +64,8 @@ class Route:
         self.xlocs[name] = x
         self.ylocs[name] = y
         self.locNames.append(name)
+        self.routeTimes[name] = 0
+        self.routeNumVisited[name] = 0
     
     def getX(self, name):
         return self.xlocs[name]
@@ -49,6 +79,8 @@ class Route:
         for i in self.locNames :
             s = s + i + ":  (" + str(self.xlocs[i]) + ", " + str(self.ylocs[i]) +")\n"
         return s
+
+
 
 
 
@@ -115,11 +147,11 @@ for i in busRoutes :
 
 import datetime
 from random import *
-
+import math
 class Bus:
     BusNumber = 0
     
-    def __init__(self, routeName):
+    def __init__(self, routeName, delta):
         self.busId = Bus.BusNumber
         Bus.BusNumber += 1
         
@@ -128,7 +160,6 @@ class Bus:
         self.waitTime = delta.seconds
         if (self.waitTime == 0):
             self.waitTime = delta.microSeconds / 1000
-        
         self.route = routeName
         self.prevDest = (busRoutes[routeName]).get(0)
         self.nextDest = (busRoutes[routeName]).get(1)
@@ -136,7 +167,12 @@ class Bus:
         self.currY = busRoutes[routeName].getY(self.prevDest)
         self.nextX = busRoutes[routeName].getX(self.nextDest)
         self.nextY = busRoutes[routeName].getY(self.nextDest)
+        self.currXDist = self.nextX- self.currX
+        self.currYDist = self.nextY - self.currY
         self.waitSteps = 0
+        self.stepsTowardsNextDest = 0
+        
+        self.sincePrevStop = 0
     
     def drive(self, time):
         if time.hour > 5 and time.hour < 22:
@@ -145,26 +181,61 @@ class Bus:
             self.active = False
         if self.waitSteps > 0:
             self.waitSteps = self.waitSteps - 1
+            self.sincePrevStop+=1
             return
         if self.active:
+            self.sincePrevStop+=1
             # don't stop here ever
             if random() < .05:
                 return
-            
-            self.currX = self.currX + (self.nextX - self.currX)/(180 / self.waitTime)
-            self.currY = self.currY + (self.nextY - self.currY)/(180 / self.waitTime)
+
+            self.stepsTowardsNextDest+=1
+            #print(self.currXDist)
+            #print(self.nextX - self.currX)
+            #print(self.currYDist)
+            #print(self.currY)
+            self.currX = self.currX + self.currXDist/(180 / self.waitTime)
+            self.currY = self.currY + self.currYDist/(180 / self.waitTime)
             #if it is at the next stop, wait a bit and then start moving to next stop
-            if (self.currX - self.nextX  < 10 ** (-12) and self.currY - self.nextY < 10 ** (-12)):
+            if (math.fabs(self.currX - self.nextX)  < 10 ** (-7) and math.fabs(self.currY - self.nextY) < 10 ** (-7)):
                 self.waitSteps = uniform((120 / self.waitTime), (240/self.waitTime))
                 if (self.nextDest == "Lot 16 & 23"):
-                    self.waitSteps = uniform((600 / self.waitTime),(1200 /self.waitTime))
+                    self.waitSteps = uniform((600 / self.waitTime),(1200 / self.waitTime))
                 if (self.nextDest == "Goheen Walk"):
                     self.waitSteps = 0
+                    
+
+                
                 self.prevDest = self.nextDest
                 self.nextDest = busRoutes[self.route].getNextStop(self.prevDest)
+                self.nextX = busRoutes[self.route].getX(self.nextDest)
+                self.nextY = busRoutes[self.route].getY(self.nextDest)
+                self.currXDist= self.nextX - self.currX
+                self.currYDist = self.nextY - self.currY
+                self.stepsTowardsNextDest = 0
+                self.sincePrevStop = 0
+    
+                # ADD TIME HERE
+                busRoutes[self.route].addLocTimes(self.prevDest, self.timeToNextStop())
         else:
             return
         
+    def distanceToNext(self):
+        return (self.currX - self.nextX) * (self.currX - self.nextX) + (self.currY - self.nextY) * (self.currY - self.nextY)
+    
+        
+    def roundDistance(self, dist):
+        return int(math.ceil((dist)/self.waitTime)) *self.waitTime
+    
+    def timeSincePrevStop(self):
+        return self.sincePrevStop*self.waitTime
+    
+    
+    def timeToNextStop(self):
+        #print(int(self.waitSteps * self.waitTime))
+        #print(self.waitTime*(180/self.waitTime - self.stepsTowardsNextDest))
+        return self.roundDistance(int(self.waitSteps * self.waitTime) + int(self.waitTime*(180/self.waitTime - self.stepsTowardsNextDest)))
+    
     def getX(self):
         if (self.active):
             return self.currX
@@ -194,9 +265,15 @@ class Bus:
     def isActive(self):
         return self.active
     
+    def timeSincePrevStop(self):
+        return self.sincePrevStop*self.waitTime
+    
     def printLocation(self):
         if(self.active):
-            print(str(self.busId) + ": " + self.getLocation())
+            print("{\"bus\": \"" + str(self.busId) + "\", \"pos\":{\"lat\":" +
+                  str(self.getX()) +",\"lng\":" + str(self.getY()) + "}, \"rt\":\"" + self.route +
+                  "\", \"prevDest\":\"" + self.prevStop() + "\", \"distNext\":" + str(self.distanceToNext()) +
+                  ", \"tPrev\":" + str(self.timeSincePrevStop()) + "}")
     
     # Define a toString method to allow for easy visualization
     def __str__(self):
@@ -206,7 +283,7 @@ class Bus:
         s = s + "Next Stop: " + self.nextDest
         return s
 
-
+buses = []
 
 # REAL TIME DATA (FAKED)
 #start bus1 at Goheen Walk
@@ -217,17 +294,27 @@ currentTime = datetime.datetime.now()
 #print(currentTime)
 #currentTime = currentTime + delta
 print(currentTime)
-b1 = Bus("Central")
-b2 = Bus("E-Quad")
+b1 = Bus("Central", delta)
+b2 = Bus("E-Quad", delta)
+buses.append(b1)
+buses.append(b2)
 import time
 delta = timedelta(microseconds = 100)
 
+def printOutBusInfo():
+    print("[")
+    for i in (range(0, len(buses))):
+        buses[i].printLocation()
+        if(not i == len(buses)-1):
+            print(",")
+    print("]")
 
 while (1) :
     time.sleep(delta.microseconds/1000)
     b1.drive(datetime.datetime.now())
     b2.drive(datetime.datetime.now())
-    b1.printLocation()
-    b2.printLocation()
+    printOutBusInfo()
+    
+    
 
     #currentTime = currentTime + delta

@@ -8,6 +8,8 @@ class Route:
         self.ylocs = {};
         self.locNames = []
         self.routeName = routeName
+        self.routeTimes = {}
+        self.routeNumVisited = {}
     
     def __init__(self, routeName, name, x, y):
         self.routeName = routeName
@@ -17,12 +19,35 @@ class Route:
         self.xlocs[name] =x
         self.ylocs[name] = y
         self.locNames.append(name)
+        self.routeTimes[name] = 0
+        self.routeNumVisted[stop] = 0
+    
+    def addLocTimes(self, stop, time):
+        self.routeNumVisited[stop] += 1
+        self.routeTimes[stop] += time
     
     def get(self, numStop):
         return self.locNames[numStop % len(self.locNames)]
         
+    def getAverageTimeNextStop(self, stop):
+        if (self.routeNumVisited[stop] == 0):
+            return 0
+        return self.routeTimes[stop]/self.routeNumVisted[stop]
+        
+    def getTimesToAllStops(self, stop, time1):
+        retTimes = {}
+        prevTime = 0
+        for i in range(0, len(self.locNames)):
+            if (self.locNames[i] == stop):
+                retTimes[self.locNames[i]] = time1
+                for j in range(1, len(self.locNames)):
+                    prevTime += getAverageTimeNextStop(self.locNames(i+j))
+                    retTimes[self.locNames[i + j]] = prevTime
+                return retTimes
+         return retTimes
+        
     def getNextStop(self, nameStop):
-        for i in range(0, len(self.routeName)+1):
+        for i in range(0, len(self.locNames)):
             #print("hi there")
             #print(self.locNames[i])
             #print(nameStop)
@@ -34,6 +59,7 @@ class Route:
         self.xlocs[name] = x
         self.ylocs[name] = y
         self.locNames.append(name)
+        self.routeTimes[name] = 0
     
     def getX(self, name):
         return self.xlocs[name]
@@ -166,7 +192,9 @@ class Bus:
                     self.waitSteps = uniform((600 / self.waitTime),(1200 / self.waitTime))
                 if (self.nextDest == "Goheen Walk"):
                     self.waitSteps = 0
- 
+                    
+
+                
                 self.prevDest = self.nextDest
                 self.nextDest = busRoutes[self.route].getNextStop(self.prevDest)
                 self.nextX = busRoutes[self.route].getX(self.nextDest)
@@ -175,6 +203,9 @@ class Bus:
                 self.currYDist = self.nextY - self.currY
                 self.stepsTowardsNextDest = 0
                 self.sincePrevStop = 0
+    
+                # ADD TIME HERE
+                busRoutes[self.route].addTime(self.prevDest, self.timetoNextStop())
         else:
             return
     
@@ -342,3 +373,7 @@ sheet.set_column(4,4, 15)
 
 # save the file
 writer.save()
+
+
+def getAllTimePredictions(time, routeName, prevStop):
+    return busRoutes[routeName].getTimesToAllStops(time, prevStop)

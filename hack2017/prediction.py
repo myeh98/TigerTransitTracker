@@ -68,3 +68,5 @@ def getTimePrediction(x,y,distNext, tPrev, stop):
     rtArr.append(0)
     return clf.predict(rtArr)
 
+#generateBusPaths.getTimes(time, routeName, prevStop)
+generateBusPaths.getTimes(getTimePrediction(locX, locY, distNext, tPrev, stop), route, stop)

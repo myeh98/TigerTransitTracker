@@ -20,9 +20,9 @@ predictionComplete = (req,callback) =>
   }
 }
 
-makePrediction = (lat, lon, callback) => 
+makePrediction = (loc, callback) => 
 {
-  var params = {lat: lat, lon: lon} 
+  var params = {loc:loc} 
   var req = new XMLHttpRequest()
 
   req.onreadystatechange = () => processPredictionRequest(req, callback)

@@ -1,11 +1,23 @@
 var pythonShell = require('python-shell')
+var BusLocations = require('./busUpdater')
 
-predict = (lat, lon, callback) =>
-{
+predict = ((locationName, callback) => {
+  args = []
+  busData = BusLocations()
 
+  args.push(locationName)
+  console.log("aou" + busData)
+  busData.forEach( (bus) => {
+    args.push(bus.bus)
+    args.push(bus.rt)
+    args.push(bus.prevDest)
+    args.push(bus.distNext)
+    args.push(bus.tPrev)
+  })
+  console.log(args)
   var options = {
     scriptPath: 'server/python/',
-    args: [lat,lon]
+    args: busData 
   }
   pythonShell.run('etaPredictor.py', 
                   options, 
@@ -14,6 +26,6 @@ predict = (lat, lon, callback) =>
     if (err) throw err
     callback(results)
   })
-}
+})
 
 module.exports = predict

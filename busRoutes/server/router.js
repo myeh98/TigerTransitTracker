@@ -17,13 +17,12 @@ router.get('/movers/locations', (req, res) =>
 
 router.post('/predict/eta', (req, res) => 
 {
-  var lat = req.body.lat
-  var lon = req.body.lon
-  predictEta(lat, lon, (eta) => 
+  var loc = req.body.loc
+  predictEta(loc, (eta) => 
   {
     res.json({eta: eta})
   })
-  console.log("Predicting for " + lat + " " + lon)
+  console.log("Predicting for " + loc)
 })
 
 module.exports = router

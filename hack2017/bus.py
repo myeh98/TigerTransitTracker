@@ -138,11 +138,12 @@ for i in range(0, len(sheet1)):
     else :
         busRoutes[row[2]].addLoc(row[1], parseX(row[0]), parseY(row[0]))
 
+'''
 for i in busRoutes :
     print(i)
     print(busRoutes[i])
     print ("\n\n")
-
+'''
 # EVERYTHING ABOVE WILL BE GONE, DONT NEED TO READ THE BUS ROUTES
 
 import datetime
@@ -273,7 +274,7 @@ class Bus:
             print("{\"bus\": \"" + str(self.busId) + "\", \"pos\":{\"lat\":" +
                   str(self.getX()) +",\"lng\":" + str(self.getY()) + "}, \"rt\":\"" + self.route +
                   "\", \"prevDest\":\"" + self.prevStop() + "\", \"distNext\":" + str(self.distanceToNext()) +
-                  ", \"tPrev\":" + str(self.timeSincePrevStop()) + "}")
+                  ", \"tPrev\":" + str(self.timeSincePrevStop()) + "}", end = "")
     
     # Define a toString method to allow for easy visualization
     def __str__(self):
@@ -282,6 +283,10 @@ class Bus:
         s = s + "Past Stop: " + self.prevDest +"\n"
         s = s + "Next Stop: " + self.nextDest
         return s
+
+
+def getRoutes():
+    return busRoutes
 
 buses = []
 
@@ -293,28 +298,31 @@ delta = timedelta(seconds = 10)
 currentTime = datetime.datetime.now()
 #print(currentTime)
 #currentTime = currentTime + delta
-print(currentTime)
+#print(currentTime)
 b1 = Bus("Central", delta)
 b2 = Bus("E-Quad", delta)
 buses.append(b1)
 buses.append(b2)
+
 import time
 delta = timedelta(microseconds = 100)
 
 def printOutBusInfo():
-    print("[")
+    print("[", end = "")
     for i in (range(0, len(buses))):
         buses[i].printLocation()
         if(not i == len(buses)-1):
-            print(",")
+            print(",", end = "")
     print("]")
+def __main__():
+    while (1) :
+        time.sleep(delta.microseconds/1000)
+        b1.drive(datetime.datetime.now())
+        b2.drive(datetime.datetime.now())
+        printOutBusInfo()
+ 
 
-while (1) :
-    time.sleep(delta.microseconds/1000)
-    b1.drive(datetime.datetime.now())
-    b2.drive(datetime.datetime.now())
-    printOutBusInfo()
-    
-    
+if(__name__ == __main__):
+    __main__()
 
     #currentTime = currentTime + delta

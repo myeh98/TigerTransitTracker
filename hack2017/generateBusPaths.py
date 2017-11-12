@@ -16,11 +16,13 @@ class Route:
         self.xlocs = {}
         self.ylocs = {}
         self.locNames = []
+        self.routeTimes = {}
+        self.routeNumVisited = {}
         self.xlocs[name] =x
         self.ylocs[name] = y
         self.locNames.append(name)
         self.routeTimes[name] = 0
-        self.routeNumVisted[stop] = 0
+        self.routeNumVisited[name] = 0
     
     def addLocTimes(self, stop, time):
         self.routeNumVisited[stop] += 1
@@ -44,7 +46,7 @@ class Route:
                     prevTime += getAverageTimeNextStop(self.locNames(i+j))
                     retTimes[self.locNames[i + j]] = prevTime
                 return retTimes
-         return retTimes
+        return retTimes
         
     def getNextStop(self, nameStop):
         for i in range(0, len(self.locNames)):
@@ -60,6 +62,7 @@ class Route:
         self.ylocs[name] = y
         self.locNames.append(name)
         self.routeTimes[name] = 0
+        self.routeNumVisited[name] = 0
     
     def getX(self, name):
         return self.xlocs[name]
@@ -128,12 +131,12 @@ for i in range(0, len(sheet1)):
         busRoutes[row[2]] = (Route(row[2], row[1], parseX(row[0]), parseY(row[0])))
     else :
         busRoutes[row[2]].addLoc(row[1], parseX(row[0]), parseY(row[0]))
-
+'''
 for i in busRoutes :
     print(i)
     print(busRoutes[i])
     print ("\n\n")
-
+'''
 import datetime
 from random import *
 import math
@@ -205,7 +208,7 @@ class Bus:
                 self.sincePrevStop = 0
     
                 # ADD TIME HERE
-                busRoutes[self.route].addTime(self.prevDest, self.timetoNextStop())
+                busRoutes[self.route].addLocTimes(self.prevDest, self.timeToNextStop())
         else:
             return
     
@@ -347,33 +350,36 @@ for i in range(1, 1000):
     print(b2.distanceToNext())
 
 '''
-sheet1 = writeToDataSheet(currentTime, delta, sheet1, 100000, b1, b2)
-df = pd.DataFrame(sheet1)
-writer = pd.ExcelWriter('sampledata10.xlsx', engine = 'xlsxwriter', datetime_format='hh:mm:ss')
-df.to_excel(writer, 'Sample Data', index = False)
-# ESTABLISH WRITER TO WRITE TO OUTPUT FILE
+def __main__():
+    sheet1 = writeToDataSheet(currentTime, delta, sheet1, 100000, b1, b2)
+    df = pd.DataFrame(sheet1)
+    writer = pd.ExcelWriter('sampledata10.xlsx', engine = 'xlsxwriter', datetime_format='hh:mm:ss')
+    df.to_excel(writer, 'Sample Data', index = False)
+    # ESTABLISH WRITER TO WRITE TO OUTPUT FILE
 
-df.to_excel(writer, 'Sample Data', index = False)
-#sheet1.to_excel(writer, 'Sample Data', index = False)
-sheet = writer.book.worksheets()[0]
-print("done with seconds10")
-# Center the worksheet
-#sheet1['DATE'] = pd.to_datetime(sheet1['Time']).dt.strftime('%-m/%-d/%y')
-center = writer.book.add_format({'align': 'center'})
-sheet.set_column('A:G', None, center)
+    df.to_excel(writer, 'Sample Data', index = False)
+    #sheet1.to_excel(writer, 'Sample Data', index = False)
+    sheet = writer.book.worksheets()[0]
+    print("done with seconds10")
+    # Center the worksheet
+    #sheet1['DATE'] = pd.to_datetime(sheet1['Time']).dt.strftime('%-m/%-d/%y')
+    center = writer.book.add_format({'align': 'center'})
+    sheet.set_column('A:G', None, center)
 
-# Following column widths are arbitrary that look good
-# sets the width of the first column to 8
-sheet.set_column(0, 0, 10)
-sheet.set_column(1, 1, 35)
-# sets width of remaining columns to 13
-sheet.set_column(2, 3, 25)
-sheet.set_column(4,4, 15)
-
-
-# save the file
-writer.save()
+    # Following column widths are arbitrary that look good
+    # sets the width of the first column to 8
+    sheet.set_column(0, 0, 10)
+    sheet.set_column(1, 1, 35)
+    # sets width of remaining columns to 13
+    heet.set_column(2, 3, 25)
+    sheet.set_column(4,4, 15)
 
 
+    # save the file
+    writer.save()
+
+if(__name__ == __main__):
+    main()
+   
 def getAllTimePredictions(time, routeName, prevStop):
     return busRoutes[routeName].getTimesToAllStops(time, prevStop)

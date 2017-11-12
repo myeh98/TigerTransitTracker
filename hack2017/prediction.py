@@ -17,8 +17,8 @@ pd.options.mode.chained_assignment = None
 xlsx = pd.ExcelFile("sampledata10.xlsx")
 df = xlsx.parse(0) #actually use sheet 2
 #print(sheet1)
-print(df.head())
-print(df.columns)
+#print(df.head())
+#print(df.columns)
 stopsFactored = pd.factorize(df["Prev Dest"])
 df["Stop Numbers"] = stopsFactored[0]
 
@@ -46,13 +46,13 @@ sumDiffs = 0
 
 mat = test.as_matrix(columns=test.columns[8:-3])
 arr = np.squeeze(np.asarray(mat))
-print(arr)
+#print(arr)
 #print(arr)
 import math
 for i in range(0, len(test)):
     sumDiffs += math.fabs(preds[i] - arr[i])
 
-print(sumDiffs/len(test))
+#print(sumDiffs/len(test))
 
 def getTimePrediction(x,y,distNext, tPrev, stop):
     rtArr = []
@@ -68,5 +68,57 @@ def getTimePrediction(x,y,distNext, tPrev, stop):
     rtArr.append(0)
     return clf.predict(rtArr)
 
+from bus import Route
+from bus import getRoutes
+busRoutes = getRoutes()
+for i in busRoutes:
+    print(str(i))
+    print(str(busRoutes[i]))
+#print(str(busRoutes))
+
+MAXTIME = 10**12
+
+#first arg is name of the stop
+
+import sys
+def predict(stop):
+    for i in busRoutes:
+        if stop in i:
+            time = predict(i, stop)
+            if time < MAXTIME:
+                MAXTIME = time
+    return MAXTIME
+
+from generateBusPaths import getAllTimePredictions
+
+'''
+[{"bus": "0", "pos":{"lat":40.346973900000044,"lng":-74.65898150000007}, "rt":"Central", "prevDest":"Dod Hall", "distNext":7.111672198820459e-07, "tPrev":40},
+{"bus": "1", "pos":{"lat":40.34649970000003,"lng":-74.65418439999989}, "rt":"E-Quad", "prevDest":"Frist/Guyot (Southbound)", "distNext":6.1249782497886385e-06, "tPrev":40}]
+'''
+
+def predict(route, stop):
+    desiredStop = sys.argv[0]
+    
+    i = 0
+    while ((len(sys.argv) - i) / 5 > 0):
+        i +=1
+        locX = sys.argv[i]
+        i+= 1
+        LocY = sys.argv[i]
+        i += 1
+        route = sys.argv[i]
+        i += 1
+        stop = sys.argv[i]
+        i += 1
+        distNext = float(sys.argv[i])
+        i +=1 
+        tPrev = float(sys.argv[i])
+        
+        
+        
+    
+    
+    
+    return getAllTimePredictions(getTimePrediction(locX, locY, distNext, tPrev, stop), route, stop)
+    
 #generateBusPaths.getTimes(time, routeName, prevStop)
-generateBusPaths.getTimes(getTimePrediction(locX, locY, distNext, tPrev, stop), route, stop)

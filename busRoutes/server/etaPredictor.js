@@ -6,9 +6,9 @@ predict = ((locationName, callback) => {
   busData = BusLocations()
 
   args.push(locationName)
-  console.log("aou" + busData)
   busData.forEach( (bus) => {
-    args.push(bus.bus)
+    args.push(bus.pos.lat)
+    args.push(bus.pos.lng)
     args.push(bus.rt)
     args.push(bus.prevDest)
     args.push(bus.distNext)

@@ -4,6 +4,7 @@ var busData = []
 
 var busLocOptions = {
   scriptPath: 'server/python/',
+  pythonPath: '/usr/bin/python3.5',
   mode: 'json'
 }
 shell = new PythonShell('busLocation.py', busLocOptions)

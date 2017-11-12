@@ -34,19 +34,19 @@
       {pos: {lat: 40.3469739, lng: -74.6589815}, name: 'Dod Hall'},
       {pos: {lat: 40.3476720, lng: -74.6594546}, name: 'Clio Hall'},
       {pos: {lat: 40.3499162, lng: -74.6586358}, name: 'Nassau/Tulane'},
-      {pos: {lat: 40.3464997, lng: -74.6541844}, name: 'Fist/Guyot'},
+      {pos: {lat: 40.3464997, lng: -74.6541844}, name: 'Fist/Guyot (Southbound)'},
       {pos: {lat: 40.3445837, lng: -74.6526179}, name: 'Icahn Lab'},
-      {pos: {lat: 40.3405285, lng: -74.6566238}, name: 'Lot 16 &23'},
+      {pos: {lat: 40.3405285, lng: -74.6566238}, name: 'Lot 16 & 23'},
       {pos: {lat: 40.3427865, lng: -74.6582771}, name: 'West Garage'},
-      {pos: {lat: 40.3434815, lng: -74.6563576}, name: 'Bloomberg Arch'},
+      {pos: {lat: 40.3434815, lng: -74.6563576}, name: 'Bloomberg Arch (Northbound)'},
       {pos: {lat: 40.3505446, lng: -74.6519645}, name: 'Friend Center'},
-      {pos: {lat: 40.3464997, lng: -74.6541844}, name: 'Frist/Guyot'},
+      {pos: {lat: 40.3464997, lng: -74.6541844}, name: 'Frist/Guyot (Southbound)'},
       {pos: {lat: 40.3445837, lng: -74.6526179}, name: 'ICahn Lab'},
       {pos: {lat: 40.3419345, lng: -74.6593111}, name: 'New Princeton Station'},
       {pos: {lat: 40.3441853, lng: -74.6624845}, name: 'PTS Campus'},
       {pos: {lat: 40.3409885, lng: -74.6646249}, name: 'Graduate College'},
-      {pos: {lat: 40.3470863, lng: -74.6618206}, name: 'University/Edwards'},
-      {pos: {lat: 40.3493804, lng: -74.6605258}, name: 'Palmer Square'},
+      {pos: {lat: 40.3470863, lng: -74.6618206}, name: 'University/Edwardsi (Northbound)'},
+      {pos: {lat: 40.3493804, lng: -74.6605258}, name: 'Palmer Square (Eastbound)'},
       {pos: {lat: 40.3499162, lng: -74.6586358}, name: 'Nassau/Tulane'},
       {pos: {lat: 40.3512863, lng: -74.6541787}, name: '201 Nassau/Charlton'}
     ]
@@ -54,7 +54,7 @@
       marks.forEach( (marker) => {
         google.maps.event.addListener(marker, 'click', function(){
           infoWindow.close()
-          makePrediction(marker.position.lat, marker.position.lng, (p) => {
+          makePrediction(marker.title, (p) => {
             content = "<div> <h3>" + marker.title + "</h3>" +
                       "<p> ETA: " + p + "</p></div>"
             infoWindow.setContent(content)
@@ -82,7 +82,7 @@
         })
         updateMovers(processed)
       })
-    }, 3000)
+    }, 2000)
    }
   function initMap() {
     princeton = {pos:{lat: 40.346545, lng: -74.658226}, name: "Princeton"}

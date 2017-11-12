@@ -1,5 +1,6 @@
 <script>
   var map;
+  var infoWindow;
   var movers = [];
   addMarkers = (data,image) =>
   {
@@ -26,7 +27,7 @@
   }  
 
   initRoutes = () =>
-  {
+  { 
     image = '/img/stop24.svg'
     locations = [
       {pos: {lat: 40.3444306, lng: -74.6570671}, name: "Goheen Walk"},
@@ -49,7 +50,18 @@
       {pos: {lat: 40.3499162, lng: -74.6586358}, name: 'Nassau/Tulane'},
       {pos: {lat: 40.3512863, lng: -74.6541787}, name: '201 Nassau/Charlton'}
     ]
-      addMarkers(locations, image)
+      marks = addMarkers(locations, image)
+      marks.forEach( (marker) => {
+        google.maps.event.addListener(marker, 'click', function(){
+          infoWindow.close()
+          makePrediction(marker.position.lat, marker.position.lng, (p) => {
+            content = "<div> <h3>" + marker.title + "</h3>" +
+                      "<p> ETA: " + p + "</p></div>"
+            infoWindow.setContent(content)
+            infoWindow.open(map, marker)
+          })
+        })
+      })
   }
 
   initUser = (map, loc) =>
@@ -223,6 +235,8 @@
           styles: style
         })
 
+     
+      infoWindow = new google.maps.InfoWindow(); /* SINGLE */
       initRoutes(map);
       initMovers()
       initUser(map,loc)
@@ -239,6 +253,7 @@
           })
     } else {
         init(princeton.pos)
+        document.getElementById("map").innerHTML = "<p> Enable geolocation </p>"
       alert('Geolocation is not supported by your browser :(') 
     }
   }

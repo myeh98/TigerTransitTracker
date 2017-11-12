@@ -71,16 +71,18 @@ def getTimePrediction(x,y,distNext, tPrev, stop):
 from bus import Route
 from bus import getRoutes
 busRoutes = getRoutes()
+'''
 for i in busRoutes:
     print(str(i))
     print(str(busRoutes[i]))
 #print(str(busRoutes))
-
+'''
 MAXTIME = 10**12
 
 #first arg is name of the stop
 
 import sys
+'''
 def predict(stop):
     for i in busRoutes:
         if stop in i:
@@ -88,7 +90,7 @@ def predict(stop):
             if time < MAXTIME:
                 MAXTIME = time
     return MAXTIME
-
+'''
 from generateBusPaths import getAllTimePredictions
 
 '''
@@ -96,12 +98,16 @@ from generateBusPaths import getAllTimePredictions
 {"bus": "1", "pos":{"lat":40.34649970000003,"lng":-74.65418439999989}, "rt":"E-Quad", "prevDest":"Frist/Guyot (Southbound)", "distNext":6.1249782497886385e-06, "tPrev":40}]
 '''
 
-def predict(route, stop):
+def predict():
+    MAXTIME = 10**12
     desiredStop = sys.argv[0]
+    timesAtEachStop = {}
     
+    for i in busRoutes:
+        timesAtEachStop[i] = MAXTIME
     i = 0
     while ((len(sys.argv) - i) / 5 > 0):
-        i +=1
+        i += 1
         locX = sys.argv[i]
         i+= 1
         LocY = sys.argv[i]
@@ -113,12 +119,11 @@ def predict(route, stop):
         distNext = float(sys.argv[i])
         i +=1 
         tPrev = float(sys.argv[i])
+        tempTimes = getAllTimePredictions(getTimePrediction(locX, locY, distNext, tPrev, stop), route, stop)
+        for j in tempTimes:
+            if tempTimes[j] < timesAtEachStop[j]:
+                timesAtEachStop[j] = tempTimes[j]
         
-        
-        
-    
-    
-    
-    return getAllTimePredictions(getTimePrediction(locX, locY, distNext, tPrev, stop), route, stop)
+    return timesAtEachStop[desiredStop]
     
 #generateBusPaths.getTimes(time, routeName, prevStop)
